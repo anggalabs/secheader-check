@@ -16,6 +16,7 @@ Tool command line untuk memeriksa **header keamanan HTTP** dan **sertifikat TLS*
 | Referrer-Policy | Kebocoran URL ke situs lain |
 | Permissions-Policy | Penyalahgunaan fitur browser (kamera, mikrofon, dll.) |
 | Header `Server` / `X-Powered-By` | Kebocoran versi software |
+| Cookie (`Secure`, `HttpOnly`, `SameSite`) | Pencurian sesi lewat XSS/HTTP, CSRF |
 | Sertifikat TLS | Sertifikat tidak valid atau hampir kedaluwarsa |
 | Versi protokol TLS | Protokol usang (TLS 1.0/1.1) |
 
@@ -24,7 +25,7 @@ Tool command line untuk memeriksa **header keamanan HTTP** dan **sertifikat TLS*
 Syarat: Python 3.8 atau lebih baru dan git.
 
 ```bash
-git clone https://github.com/<anggalabs>/secheader-check.git
+git clone https://github.com/anggalabs/secheader-check.git
 cd secheader-check
 ```
 
@@ -80,6 +81,7 @@ Skor ini adalah **heuristik**, bukan audit keamanan lengkap. Header yang bagus t
 - Pemeriksaan header otomatis memakai proxy dari variabel `HTTPS_PROXY`. Pemeriksaan TLS tidak: koneksinya langsung ke port 443. Di jaringan yang mewajibkan proxy, hasil TLS akan berstatus "tidak dapat diperiksa" dan tidak mengurangi skor. Gunakan `--no-tls` dalam kondisi itu.
 - Hanya halaman yang dituju (setelah redirect) yang diperiksa. Halaman lain di situs yang sama bisa punya header berbeda.
 - Analisis CSP memeriksa pola lemah yang umum, bukan validasi CSP yang lengkap.
+- Cookie hanya dibaca dari respons akhir. Cookie yang dipasang di respons redirect (mis. saat login) tidak terlihat. Nama cookie sesi ditebak dari polanya (`sess`, `auth`, `token`, dll.), jadi bisa meleset.
 
 ## Menjalankan test
 

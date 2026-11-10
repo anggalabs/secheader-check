@@ -9,6 +9,7 @@ from typing import List, Optional
 from urllib.parse import urlparse
 
 from . import __version__
+from .cookies import check_cookies
 from .headers import Finding, analyze_headers, compute_score, grade
 from .tls import TLSInfo, get_tls_info, tls_findings
 
@@ -71,6 +72,8 @@ def scan(target: str, timeout: float = 10.0, check_tls: bool = True) -> ScanResu
     is_https = final.scheme == "https"
 
     result.findings = analyze_headers(headers, is_https)
+    # Header mentah (bukan yang sudah dinormalisasi) karena Set-Cookie tidak boleh digabung.
+    result.findings.append(check_cookies(headers, is_https))
 
     if check_tls and is_https and final.hostname:
         result.tls = get_tls_info(final.hostname, final.port or 443, timeout)
