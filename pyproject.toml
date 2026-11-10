@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "secheader-check"
+version = "0.1.0"
+description = "Pemeriksa header keamanan HTTP dan sertifikat TLS dari command line"
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "MIT" }
+authors = [{ name = "Angga" }]
+dependencies = []
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Environment :: Console",
+    "Topic :: Security",
+]
+
+[project.scripts]
+secheader-check = "secheader_check.cli:main"
+
+[tool.setuptools]
+packages = ["secheader_check"]
