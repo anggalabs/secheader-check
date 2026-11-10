@@ -24,7 +24,7 @@ Tool command line untuk memeriksa **header keamanan HTTP** dan **sertifikat TLS*
 Syarat: Python 3.8 atau lebih baru dan git.
 
 ```bash
-git clone https://github.com/<username>/secheader-check.git
+git clone https://github.com/<anggalabs>/secheader-check.git
 cd secheader-check
 ```
 
